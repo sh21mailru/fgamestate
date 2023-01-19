@@ -1,0 +1,172 @@
+@import "variables";
+
+body {
+    font-family             : 'Noto Sans', sans-serif;
+    -webkit-font-smoothing  : antialiased;
+    -moz-osx-font-smoothing : grayscale;
+
+    * {
+        box-sizing : border-box;
+    }
+}
+
+.custom-group {
+    &_flex {
+        display     : flex;
+        align-items : center;
+    }
+}
+
+.form-group {
+    &_flex {
+        display         : flex;
+        align-items     : center;
+        justify-content : space-between;
+    }
+}
+
+$pageTopPadding    : 104px;
+$pageBottomPadding : 124px;
+$pageSidePadding   : 92px;
+
+.page {
+    &-wrap {
+        position   : relative;
+        width      : 100%;
+        min-height : 100vh;
+        background :
+                url('../../assets/img/main-background-shadow.png') center no-repeat,
+                url('../../assets/img/main-background.jpg') center no-repeat;
+
+        background-size: cover;
+
+        &_auth {
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
+            padding         : $pageTopPadding $pageSidePadding $pageBottomPadding;
+
+            .logo {
+                position : absolute;
+                top      : calc(#{$pageTopPadding} - 53px);
+                left     : $pageSidePadding;
+            }
+        }
+    }
+
+    &-header {
+        display         : flex;
+        align-items     : center;
+        justify-content : space-between;
+        height          : 72px;
+        margin-bottom   : 26px;
+        padding         : 16px 32px;
+    }
+
+    &-workarea {
+        display         : flex;
+        align-items     : flex-start;
+        justify-content : space-between;
+        padding         : 0 32px 32px;
+    }
+
+    $sidebarWidth: 328px;
+    $sidebarRightMargin: 24px;
+
+    &-sidebar {
+        flex-shrink  : 0;
+        width        : $sidebarWidth;
+        margin-right : $sidebarRightMargin;
+    }
+
+    &-container {
+        width : calc(100% - #{$sidebarWidth} - #{$sidebarRightMargin});
+    }
+}
+
+.logo {
+    display     : flex;
+    align-items : center;
+
+    &__img {
+        margin-right : 16px;
+    }
+
+    &__text {
+        font-size      : 24px;
+        font-weight    : 500;
+        line-height    : 33px;
+        letter-spacing : 0.65px;
+        color          : #FFECB3;
+    }
+}
+
+.sidebar-block {
+    font-family       : 'Rubik', sans-serif;
+    padding           : 16px 24px;
+    background        : rgba(11, 31, 62, 0.85);
+    backdrop-filter   : blur(1px);
+    border-radius     : 16px;
+
+    &__title {
+        margin-bottom  : 24px;
+        font-size      : 18px;
+        font-weight    : 600;
+        line-height    : 21px;
+        letter-spacing : 1.15px;
+        text-transform : uppercase;
+        color          : #fff;
+    }
+
+    $elementLinkClass : '.sidebar-block-list__item-link';
+
+    &-list {
+        margin     : unset;
+        padding    : unset;
+        list-style : none;
+
+        &__item {
+            font-size      : 16px;
+            font-weight    : 400;
+            line-height    : 22px;
+            letter-spacing : 0.35px;
+            color          : #fff;
+
+            &-link {
+                display       : flex;
+                align-items   : center;
+                min-height    : 38px;
+                padding       : 8px 16px;
+                border-radius : 8px;
+                color         : #fff;
+                transition    : 0.3s;
+            }
+
+            &.active,
+            &:hover {
+                #{$elementLinkClass} {
+                    color      : #263238;
+                    background : #FFE082;
+                }
+            }
+
+            &:not(:last-of-type) {
+                margin-bottom : 24px;
+            }
+        }
+    }
+
+    &:not(:last-of-type) {
+        margin-bottom : 24px;
+    }
+}
+
+.copyright {
+    position       : absolute;
+    bottom         : calc(#{$pageBottomPadding} - 50px);
+    font-size      : 14px;
+    line-height    : 16px;
+    letter-spacing : 0.1px;
+    text-align     : center;
+    color          : #fff;
+}

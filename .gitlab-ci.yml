@@ -1,0 +1,30 @@
+prod:
+  stage: deploy
+  before_script:
+  - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan -p $PORT $HOST >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  script:
+  - echo $SSH_USER@$HOST -p $PORT
+  - ssh $SSH_USER@$HOST -p $PORT "cd /home/developer/fgame/ && git pull origin feature/upd-12.09 && npm run bld &&  exit"
+  only:
+  - feature/upd-12.09
+  
+stand:
+  stage: deploy
+  before_script:
+  - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan -p $PORT $HOST >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  script:
+  - ssh $SSH_USER@$HOST -p $PORT "cd /home/developer/fgame/ && git checkout . && git pull origin main && npm run bld && exit"
+  only:
+  - main
